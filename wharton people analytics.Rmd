@@ -1,0 +1,45 @@
+---
+title: "wharton people analytics competition"
+author: "Zhongyuan Zhang"
+date: "5/29/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Loading package
+library(tidyverse)
+library(ggplot2)
+library(car)
+```
+
+```{r}
+df<-read.csv("MSF_OCP_departures.csv",header = TRUE,stringsAsFactors = FALSE)
+str(df)
+df$departure_date<-as.Date(df$departure_date)
+df$return_date<-as.Date(df$return_date)
+```
+
+```{r}
+df%>%
+  group_by(staff_id)%>%
+  unique(job_title)
+
+
+#frequency of mobility of each staff on the list
+sort_mob_frq<-sort(table(df$staff_id),decreasing = TRUE)
+summary(sort_mob_frq)
+
+sort_mob_frq<-data.frame(sort_mob_frq)
+names(sort_mob_frq)<-c("staff_id","frequency")
+
+#duration of offsite
+df$duration<-df$return_date-df$departure_date
+
+#plot the distribution of mobolity
+ggplot(df,aes(x=))
+```
+
